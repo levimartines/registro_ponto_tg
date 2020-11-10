@@ -1,12 +1,15 @@
+import datetime
 import sqlite3
 import time
 
 import cv2
 import numpy as np
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request,redirect
+from datetime import datetime
 
 detector_face = cv2.CascadeClassifier("./haarcascade/haarcascade_frontalface_default.xml")
 recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer.read("classificadores/classificadorLBPH.yml")
 width, height = 220, 220
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
 
@@ -24,11 +27,6 @@ def adm():
     return render_template('adm.html')
 
 
-@app.route('/camera')
-def camera():
-    return render_template('camera.html')
-
-
 @app.route('/cadastro')
 def cadastro():
     return render_template('cadastro.html')
@@ -39,13 +37,13 @@ def my_form_post():
     msg = "msg"
     if request.method == "POST":
         try:
-            rgfuncional = request.form["codigo"]
+            numeroRegistro = request.form["codigo"]
             name = request.form["name"]
             email = request.form["email"]
-            with sqlite3.connect("db/funcionario.db") as con:
+            with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
-                cur.execute("INSERT into COLABORADORES (rgfuncional,name, email) values (?,?,?)",
-                            (rgfuncional, name, email))
+                cur.execute("INSERT into COLABORADORES (COL_REGISTRO,COL_NOME,COL_EMAIL) values (?,?,?)",
+                            (numeroRegistro, name, email))
                 con.commit()
                 msg = "Employee successfully Added"
         except:
@@ -93,9 +91,9 @@ def work():
                     findface = True
                     i = 0
                     try:
-                        id = 1
-                        name = 'Renan Alcolea'
-                        data = datetime.now()
+                        id = 2
+                        name = 'Levi Martines'
+                        data = datetime.datetime.now()
                         with sqlite3.connect("db/ponto.db") as con:
                             cur = con.cursor()
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
@@ -110,9 +108,9 @@ def work():
                     findface = True
                     i = 0
                     try:
-                        id = 2
-                        name = 'Izabele Bello'
-                        data = datetime.now()
+                        id = 1
+                        name = 'Renan Alcolea'
+                        data = datetime.datetime.now()
                         with sqlite3.connect("db/ponto.db") as con:
                             cur = con.cursor()
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
@@ -135,17 +133,43 @@ def work():
             break
 
 
+@app.route("/post-registro", methods=["POST", "GET"])
+def registro_post():
+    msg = "msg"
+    if request.method == "POST":
+        try:
+            operador_id = request.form["codigo"]
+            data = request.form["horario"]
+            with sqlite3.connect("db/ponto.db") as con:
+                cur = con.cursor()
+                cur.execute("SELECT * FROM COLABORADORES WHERE COL_ID = ?", operador_id)
+                rows = cur.fetchall()
+                colaborador = rows[0]
+                nome = colaborador[2]
+                cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
+                            (operador_id, nome, data))
+                con.commit()
+                msg = "Novo ponto registrado"
+                return redirect('/consulta')
+        except:
+            con.rollback()
+            msg = "We can not add the employee to the list"
+        finally:
+            con.close()
+            return redirect('/consulta')
+    return redirect('/consulta')
+
+
 @app.route('/consulta')
 def consulta():
     try:
         con = sqlite3.connect("db/ponto.db")
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute("select * from Ponto")
+        cur.execute("SELECT * FROM REGISTRO")
         rows = cur.fetchall()
-        return render_template("consulta.html", rows=rows)
         con.close()
-        exit(0)
+        return render_template("consulta.html", rows=rows)
 
     except:
         con.rollback()
@@ -177,10 +201,10 @@ def success():
 @app.route("/view")
 def view():
     try:
-        con = sqlite3.connect("db/funcionario.db")
+        con = sqlite3.connect("db.sqlite3")
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute("select * from Employees")
+        cur.execute("select * from COLABORADORES")
         rows = cur.fetchall()
         return render_template("view.html", rows=rows)
         con.close()
@@ -201,9 +225,9 @@ def saveDetails():
             rgfuncional = request.form["rgfuncional"]
             name = request.form["name"]
             email = request.form["email"]
-            with sqlite3.connect("db/funcionario.db") as con:
+            with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
-                cur.execute("INSERT into Employees (rgfuncional,name, email) values (?,?,?)",
+                cur.execute("INSERT into COLABORADORES (COL_RG,COL_NOME,COL_EMAIL) values (?,?,?)",
                             (rgfuncional, name, email))
                 con.commit()
         except:
@@ -216,10 +240,10 @@ def saveDetails():
 @app.route("/deleterecord", methods=["POST"])
 def deleterecord():
     id = request.form["id"]
-    with sqlite3.connect("db/funcionario.db") as con:
+    with sqlite3.connect("db/ponto.db") as con:
         try:
             cur = con.cursor()
-            cur.execute("delete from Employees where id = ?", id)
+            cur.execute("delete from COLABORADORES where id = ?", id)
             msg = "record successfully deleted"
         except:
             msg = "can't be deleted"
