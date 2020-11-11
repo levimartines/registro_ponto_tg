@@ -187,7 +187,7 @@ def registro_post():
         try:
             operador_registro = request.form["codigo"]
             data = request.form["horario"]
-            data.replace("T", " ")
+            data = data.replace("T", " ")
             data_format = data + ":00.000000"
             with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
