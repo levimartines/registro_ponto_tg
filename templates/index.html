@@ -6,38 +6,37 @@
     <title>Controle de Acesso</title>
 </head>
 <body>
-<div class="d-flex flex-column">
-    <div>
-        <nav class="navbar navbar-dark bg-dark" style="justify-content: flex-start">
-
-
-            <a class="navbar-brand">
-                <a class="nav-link" href="/" style="font-size: 25px">Home</a>
-            </a>
-
-            <a class="navbar-brand">
-                <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
-            </a>
-
-            <a class="navbar-brand">
-                <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-            </a>
-
-            <a class="navbar-brand">
-                <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
-            </a>
-        </nav>
-    </div>
-</div>
 
 <div class="card" style="width: 18rem; margin-left: 500px; margin-top:10px;">
-    <img src="https://jeonline.com.br/site/uploads/posts/nota-maxima-do-mec-acelera-transformacao-da-facens-em-centro-universitario-630812f2d642d800762a428305057bf5.jpg" class="card-img-top" alt="...">
+    <img src="https://jeonline.com.br/site/uploads/posts/nota-maxima-do-mec-acelera-transformacao-da-facens-em-centro-universitario-630812f2d642d800762a428305057bf5.jpg"
+         class="card-img-top" alt="...">
     <div class="card-body">
-      <h5 class="card-title">Controle de Acesso e Ponto Eletrônico com uso de Inteligência Artificial</h5>
-      <p class="card-text">Protótipo de Sistema de Controle de Acesso e Registro de Ponto requisito para a graduação do curso de Engenharia da Computação pelo Centro Universitário Facens.</p>
-      <a href="/adm" class="btn btn-primary">Painel de Administrador</a>
+
+        <br>
+        <h2>Login</h2>
+        <div style="margin-left: 20px">
+            <form method="POST" id="form" action="/login">
+                <label>
+                    Registro:
+                    <input type="text" name="codigo" id="codigo" style="width: 200px">
+                </label>
+                <br>
+                <label>
+                    Senha:
+                    <input type="password" name="pass" id="pass" style="width: 200px">
+                </label>
+                <br>
+                <input id="submitCodigo" class="btn btn-primary" type="submit" value="Login">
+                <br>
+            </form>
+
+            {#
+            <button onclick="addCam()">Cadastrar fotos</button>
+            #}
+
+        </div>
     </div>
-  </div> 
+</div>
 
 </body>
 </html>

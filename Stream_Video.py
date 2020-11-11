@@ -16,6 +16,7 @@ font = cv2.FONT_HERSHEY_COMPLEX_SMALL
 app = Flask(__name__)
 codigo: int = 0
 
+isAdmin: int = 0
 
 @app.route('/')
 def index():
@@ -93,7 +94,7 @@ def work():
                     try:
                         id = 2
                         name = 'Levi Martines'
-                        data = datetime.datetime.now()
+                        data = datetime.now()
                         with sqlite3.connect("db/ponto.db") as con:
                             cur = con.cursor()
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
@@ -110,7 +111,7 @@ def work():
                     try:
                         id = 1
                         name = 'Renan Alcolea'
-                        data = datetime.datetime.now()
+                        data = datetime.now()
                         with sqlite3.connect("db/ponto.db") as con:
                             cur = con.cursor()
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
@@ -138,16 +139,16 @@ def registro_post():
     msg = "msg"
     if request.method == "POST":
         try:
-            operador_id = request.form["codigo"]
+            operador_registro = request.form["codigo"]
             data = request.form["horario"]
             with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
-                cur.execute("SELECT * FROM COLABORADORES WHERE COL_ID = ?", operador_id)
+                cur.execute("SELECT * FROM COLABORADORES WHERE COL_REGISTRO = ?", operador_registro)
                 rows = cur.fetchall()
                 colaborador = rows[0]
                 nome = colaborador[2]
                 cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
-                            (operador_id, nome, data))
+                            (operador_registro, nome, data))
                 con.commit()
                 msg = "Novo ponto registrado"
                 return redirect('/consulta')
@@ -158,6 +159,20 @@ def registro_post():
             con.close()
             return redirect('/consulta')
     return redirect('/consulta')
+
+
+@app.route("/login", methods=["POST", "GET"])
+def login_post():
+    msg = "msg"
+    if request.method == "POST":
+        operador_registro = request.form["codigo"]
+        password = request.form["pass"]
+        if operador_registro == "2" and password == "levi":
+            global isAdmin
+            isAdmin = 1
+            return redirect('/consulta')
+        return redirect('/')
+
 
 
 @app.route('/consulta')
