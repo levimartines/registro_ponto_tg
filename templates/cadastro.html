@@ -7,59 +7,69 @@
 <body>
 <div class="d-flex flex-column">
     <div>
-        <nav class="navbar navbar-dark bg-dark" style="justify-content: flex-start">
-            <a class="navbar-brand">
-                <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
-            </a>
+        <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
+            <div>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
+                </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
+                </a>
 
-            <a class="navbar-brand">
-                <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-            </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
+                </a>
 
-            <a class="navbar-brand">
-                <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
-            </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                </a>
+            </div>
+
+            <div>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/" style="font-size: 25px">Log Out</a>
+                </a>
+            </div>
         </nav>
     </div>
     <br>
     <div class="container">
-            <h2>Cadastro de Funcionário</h2>
-    <div class="container">
-        <form method="POST" id="form" action="/cadastro">
-            <label>
-                Registro:
-                <input type="text" name="codigo" id="codigo" style="width: 200px">
-            </label>
-            <br>
-            <label>
-                Nome:
-                <input type="text" name="name" id="name" style="width: 200px">
-            </label>
-            <br>
-            <label>
-                Email:
-                <input type="email" name="email" id="email" placeholder="nome@dominio.com" style="width: 200px ">
-            </label>
-            <br>
-            <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
-            <br>
-        </form>
-        {#
-        <button onclick="addCam()">Cadastrar fotos</button>
-        #}
-    </div>
-    <div class="d-flex justify-content-center" id="divX">
-        {#<img src="{{ url_for('video_capture') }}" id="img" style="display: none">#}
-    </div>
+        <h2>Cadastro de Funcionário</h2>
+        <div class="container">
+            <form method="POST" id="form" action="/cadastro">
+                <label>
+                    Registro:
+                    <input type="text" name="codigo" id="codigo" style="width: 200px">
+                </label>
+                <br>
+                <label>
+                    Nome:
+                    <input type="text" name="name" id="name" style="width: 200px">
+                </label>
+                <br>
+                <label>
+                    Email:
+                    <input type="email" name="email" id="email" placeholder="nome@dominio.com" style="width: 200px ">
+                </label>
+                <br>
+                <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
+                <br>
+            </form>
+            {#
+            <button onclick="addCam()">Cadastrar fotos</button>
+            #}
+        </div>
+        <div class="d-flex justify-content-center" id="divX">
+            {#<img src="{{ url_for('video_capture') }}" id="img" style="display: none">#}
+        </div>
     </div>
 </div>
 <script>
     document.getElementById("form").onsubmit(function (e) {
         e.preventDefault();
     });
+
+
 
 </script>
 </body>

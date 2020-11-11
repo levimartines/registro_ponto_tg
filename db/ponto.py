@@ -26,22 +26,22 @@ con.execute(
 
 con.execute(
     "INSERT INTO COLABORADORES (COL_REGISTRO, COL_NOME, COL_EMAIL) VALUES (?,?,?)",
-    (1, "Levi Martines", "levi@levi.com")
+    (1, "Renan Alcolea", "renan@levi.com")
 )
 
 con.execute(
     "INSERT INTO COLABORADORES (COL_REGISTRO, COL_NOME, COL_EMAIL) VALUES (?,?,?)",
-    (2, "Renan Alcolea", "renan@levi.com")
+    (2, "Levi Martines", "levi@levi.com")
 )
 
 con.execute(
     "INSERT INTO REGISTRO (COL_ID, REG_NOME, REG_DATA) VALUES (?,?,?)",
-    (1, "Levi Martines", datetime.datetime.now())
+    (1, "Renan Alcolea", datetime.datetime.now())
 )
 
 con.execute(
     "INSERT INTO REGISTRO (COL_ID, REG_NOME, REG_DATA) VALUES (?,?,?)",
-    (2, "Renan Alcolea", datetime.datetime.now())
+    (2, "Levi Martines", datetime.datetime.now())
 )
 
 con.commit()

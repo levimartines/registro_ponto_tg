@@ -39,10 +39,10 @@ def login_post():
     if request.method == "POST":
         operador_registro = request.form["codigo"]
         password = request.form["pass"]
-        if operador_registro == "1" and password == "levi":
+        if operador_registro == "1" and password == "renan":
             altera_session_id(1)
             return redirect('/consulta')
-        if operador_registro == "2" and password == "renan":
+        if operador_registro == "2" and password == "levi":
             altera_session_id(2)
             return redirect('/consulta')
         return redirect('/')
@@ -58,7 +58,7 @@ def consulta():
         con = sqlite3.connect("db/ponto.db")
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        if session_id == 1:
+        if session_id == 2:
             cur.execute("SELECT * FROM REGISTRO ORDER BY REG_DATA DESC")
             rows = cur.fetchall()
             con.close()
@@ -142,13 +142,12 @@ def work():
                     findface = True
                     i = 0
                     try:
-                        id = 2
-                        name = 'Levi Martines'
+                        name = 'Renan Alcolea'
                         data = datetime.now()
                         with sqlite3.connect("db/ponto.db") as con:
                             cur = con.cursor()
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
-                                        (id, name, data))
+                                        (class_id, name, data))
                             con.commit()
                             # messagebox.showinfo('Ponto registrado com sucesso')
                     except:
@@ -159,13 +158,12 @@ def work():
                     findface = True
                     i = 0
                     try:
-                        id = 1
-                        name = 'Renan Alcolea'
+                        name = 'Levi Martines'
                         data = datetime.now()
                         with sqlite3.connect("db/ponto.db") as con:
                             cur = con.cursor()
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
-                                        (id, name, data))
+                                        (class_id, name, data))
                             con.commit()
                             # messagebox.showinfo('Ponto registrado com sucesso')
                     except:
