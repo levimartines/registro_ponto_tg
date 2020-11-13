@@ -8,7 +8,7 @@
 <div class="d-flex flex-column">
     <div>
         <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
-            <div>
+            <div class="row">
                 <a class="navbar-brand">
                     <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
                 </a>
@@ -17,15 +17,15 @@
                 </a>
 
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
                 </a>
 
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
                 </a>
-            </div>
 
-            <div>
+            </div>
+            <div class="row">
                 <a class="navbar-brand">
                     <a class="nav-link" href="/" style="font-size: 25px">Log Out</a>
                 </a>
@@ -38,8 +38,8 @@
         <div class="container">
             <form method="POST" id="form" action="/cadastro">
                 <label>
-                    Registro:
-                    <input type="text" name="codigo" id="codigo" style="width: 200px">
+                    Matrícula:
+                    <input type="text" name="matricula" id="matricula" style="width: 200px">
                 </label>
                 <br>
                 <label>
@@ -47,11 +47,30 @@
                     <input type="text" name="name" id="name" style="width: 200px">
                 </label>
                 <br>
+                <br>
+                <label>
+                    CPF:
+                    <input type="text" name="cpf" id="cpf" style="width: 200px">
+                </label>
+                <br>
+                <label>
+                    RG:
+                    <input type="text" name="rg" id="rg" style="width: 200px">
+                </label>
                 <label>
                     Email:
                     <input type="email" name="email" id="email" placeholder="nome@dominio.com" style="width: 200px ">
                 </label>
                 <br>
+                <label>
+                    Senha:
+                    <input type="password" name="senha" id="senha" style="width: 200px">
+                </label>
+                <br>
+                <div>
+                    <input type="checkbox" id="admin" name="admin">
+                    <label for="admin">RH</label>
+                </div>
                 <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
                 <br>
             </form>
@@ -64,10 +83,12 @@
         </div>
     </div>
 </div>
+
 <script>
     document.getElementById("form").onsubmit(function (e) {
         e.preventDefault();
     });
+
 
 
 

@@ -8,51 +8,62 @@
 <body>
 <div class="d-flex flex-column">
     <div>
-        <nav class="navbar navbar-dark bg-dark" style="justify-content: flex-start">
-            <a class="navbar-brand">
-                <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de Colaboradores</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta</a>
-            </a>
+        <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
+            <div class="row">
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
+                </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
+                </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
+                </a>
 
+            </div>
+            <div class="row">
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/" style="font-size: 25px">Log Out</a>
+                </a>
+            </div>
         </nav>
     </div>
-</div>
 
-<div class="container" style="margin-top:18px">
-    <table class="table table-hover">
-        <thead class="thead-dark">
-        <tr>
-<!--            <th scope="col">ID</th>-->
-            <th scope="col">Nm Registro</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Email</th>
-            <th scope="col">Excluir</th>
-        </tr>
-        </thead>
+    <br>
+    <div class="container" style="margin-top:18px">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <!--            <th scope="col">ID</th>-->
+                <th scope="col">Nm Registro</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">CPF</th>
 
-        {% for row in rows %}
-        <tr>
-<!--            <th>{{row["COL_ID"]}}</th>-->
-            <th>{{row["COL_REGISTRO"]}}</th>
-            <td>{{row["COL_NOME"]}}</td>
-            <td>{{row["COL_EMAIL"]}}</td>
-            <td>
-                <button>Excluir</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br><br>
+                <th scope="col">Excluir</th>
+            </tr>
+            </thead>
 
-    <a href="/consulta" class="btn btn-secondary">Voltar</a>
+            {% for row in rows %}
+            <tr>
+                <!--            <th>{{row["COL_ID"]}}</th>-->
+                <th>{{row["COL_REGISTRO"]}}</th>
+                <td>{{row["COL_NOME"]}}</td>
+                <td>{{row["COL_EMAIL"]}}</td>
+                <td>{{row["COL_CPF"]}}</td>
+                <td>
+                    <button>Excluir</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br>
+
+        <a href="/consulta" class="btn btn-secondary">Voltar</a>
+    </div>
 </div>
 
 </body>

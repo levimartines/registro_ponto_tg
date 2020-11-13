@@ -8,30 +8,34 @@
 <body>
 <div class="d-flex flex-column">
     <div>
-        datetime.now()
-        <a class="navbar-brand">
+        <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
+            <div class="row">
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
+                </a>
 
-            <span style="font-size: 40px; margin-left: 20px; ">Controle de Acesso</span>
-        </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
+                </a>
 
-        <a class="navbar-brand">
-            <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
-        </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
+                </a>
 
-        <a class="navbar-brand">
-            <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-        </a>
+            </div>
 
-        <a class="navbar-brand">
-            <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta</a>
-        </a>
+            <div class="row">
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/" style="font-size: 25px">Log Out</a>
+                </a>
+            </div>
         </nav>
     </div>
-</div>
-<div class="container">
-    <h3>Funcionário adicionado com Sucesso</h3>
-    <br>
-    <a href="/consulta" class="btn btn-secondary">Voltar</a>
+    <div class="container">
+        <h3>Funcionário adicionado com Sucesso</h3>
+        <br>
+        <a href="/consulta" class="btn btn-secondary">Voltar</a>
+    </div>
 </div>
 </body>
 </html>  

@@ -21,15 +21,21 @@ def getImagemComId():
         faces.append(imagemFace)
     return np.array(ids), faces
 
-ids, faces = getImagemComId()
+#ids, faces = getImagemComId()
 
-print('Treinando...')
+#print('Treinando...')
 
 # TREINAMENTO
-eigenface.train(faces, ids)
-eigenface.write('classificadores/classificadorEigen.yml')
+#eigenface.train(faces, ids)
+#eigenface.write('classificadores/classificadorEigen.yml')
 
-lbph.train(faces, ids)
-lbph.write('classificadores/classificadorLBPH.yml')
+#lbph.train(faces, ids)
+#lbph.write('classificadores/classificadorLBPH.yml')
 
-print('TREINAMENTO REALIZADO COM SUCESSO')
+#print('TREINAMENTO REALIZADO COM SUCESSO')
+
+def treinar():
+    ids, faces = getImagemComId()
+    lbph.train(faces, ids)
+    lbph.write('classificadores/classificadorLBPH.yml')
+    print('TREINAMENTO REALIZADO COM SUCESSO')

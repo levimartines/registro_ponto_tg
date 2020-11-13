@@ -1,6 +1,7 @@
 import datetime
 import sqlite3
 import time
+import Treinamento3
 
 import cv2
 import numpy as np
@@ -15,8 +16,8 @@ font = cv2.FONT_HERSHEY_COMPLEX_SMALL
 
 app = Flask(__name__)
 codigo: int = 0
-
 session_id: int = 0
+user_id: int = 0
 
 
 @app.route('/')
@@ -29,23 +30,46 @@ def altera_session_id(id):
     session_id = id
 
 
-def altera_codigo(novoCodigo):
+def altera_codigo(novo_codigo):
     global codigo
-    codigo = novoCodigo
+    codigo = novo_codigo
+
+
+def altera_user_id(new_user_id):
+    global user_id
+    user_id = new_user_id
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login_post():
     if request.method == "POST":
-        operador_registro = request.form["codigo"]
+        email = request.form["email"]
         password = request.form["pass"]
-        if operador_registro == "1" and password == "renan":
-            altera_session_id(1)
-            return redirect('/consulta')
-        if operador_registro == "2" and password == "levi":
-            altera_session_id(2)
-            return redirect('/consulta')
-        return redirect('/')
+
+        if email == '' or password == '':
+            return redirect('/')
+
+        with sqlite3.connect("db/ponto.db") as con:
+            cur = con.cursor()
+            print(email)
+            cur.execute("SELECT * FROM COLABORADORES WHERE COL_EMAIL LIKE ?", [email])
+            rows = cur.fetchall()
+            colaborador = rows[0]
+            print(str(colaborador))
+            if colaborador is None:
+                return redirect('/')
+
+            senha = colaborador[5]
+            if password == senha:
+                altera_user_id(colaborador[0])
+                admin = colaborador[7]
+                if admin == 2:
+                    altera_session_id(2)
+                else:
+                    altera_session_id(1)
+                return redirect('/consulta')
+            else:
+                return redirect('/')
 
 
 @app.route('/consulta')
@@ -64,7 +88,8 @@ def consulta():
             con.close()
             return render_template("consulta.html", rows=rows)
         else:
-            cur.execute("SELECT * FROM REGISTRO WHERE COL_ID = ? ORDER BY REG_DATA DESC", (str(session_id)))
+            global user_id
+            cur.execute("SELECT * FROM REGISTRO WHERE COL_ID = ? ORDER BY REG_DATA DESC", (str(user_id)))
             rows = cur.fetchall()
             con.close()
             return render_template("consulta-pessoa.html", rows=rows)
@@ -85,20 +110,30 @@ def cadastro():
 def my_form_post():
     if request.method == "POST":
         try:
-            numero_registro = request.form["codigo"]
+            matricula = request.form["matricula"]
             name = request.form["name"]
+            cpf = request.form["cpf"]
+            rg = request.form["rg"]
             email = request.form["email"]
-
-            if numero_registro == '' or name == '' or email == '':
+            senha = request.form["senha"]
+            rh = request.form["admin"]
+            print(str(rh))
+            if matricula == '' or name == '' or cpf == '' or rg == '' or email == '' or senha == '':
                 return redirect('/cadastro')
+
+            isRh = 1
+            if rh == 'on':
+                isRh = 2
 
             with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
-                cur.execute("INSERT into COLABORADORES (COL_REGISTRO,COL_NOME,COL_EMAIL) values (?,?,?)",
-                            (numero_registro, name, email))
+                con.execute(
+                    "INSERT INTO COLABORADORES (COL_MATRICULA, COL_NOME,COL_CPF,COL_RG,COL_SENHA,COL_EMAIL,COL_ADMIN) "
+                    "VALUES (?,?,?,?,?,?,?)",
+                    (matricula, name, cpf, rg, senha, email, 0))
                 con.commit()
                 global codigo
-                altera_codigo(codigo)
+                altera_codigo(matricula)
         finally:
             con.close()
     return redirect('/cadastro-camera')
@@ -127,9 +162,9 @@ def work():
         i += 1
         ret, img = cap.read()
 
-        if findface and i < 10:
-            msg = 'Registro de Ponto Gravado com Sucesso !!'
-            cv2.putText(img, msg, (100, 25), font, 1, (0, 255, 0))
+        if findface and i < 20:
+            msg = 'PONTO REGISTRADO COM SUCESSO'
+            cv2.putText(img, msg, (100, 100), font, 1, (0, 255, 0))
 
         image_grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         detected_faces = detector_face.detectMultiScale(image_grey, scaleFactor=1.5, minSize=(30, 30))
@@ -149,12 +184,27 @@ def work():
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
                                         (class_id, name, data))
                             con.commit()
-                            # messagebox.showinfo('Ponto registrado com sucesso')
                     except:
                         con.rollback()
                     finally:
                         con.close()
                 elif i >= 30 and class_id == 2 and confidence < 65:
+                    findface = True
+                    i = 0
+                    try:
+                        name = 'Sandra Lucia'
+                        data = datetime.now()
+                        with sqlite3.connect("db/ponto.db") as con:
+                            cur = con.cursor()
+                            cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
+                                        (class_id, name, data))
+                            con.commit()
+
+                    except:
+                        con.rollback()
+                    finally:
+                        con.close()
+                elif i >= 30 and class_id == 3 and confidence < 65:
                     findface = True
                     i = 0
                     try:
@@ -165,7 +215,6 @@ def work():
                             cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
                                         (class_id, name, data))
                             con.commit()
-                            # messagebox.showinfo('Ponto registrado com sucesso')
                     except:
                         con.rollback()
                     finally:
@@ -185,11 +234,14 @@ def registro_post():
         try:
             operador_registro = request.form["codigo"]
             data = request.form["horario"]
+            if data == '':
+                return redirect('/consulta')
+
             data = data.replace("T", " ")
             data_format = data + ":00.000000"
             with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
-                cur.execute("SELECT * FROM COLABORADORES WHERE COL_REGISTRO = ?", operador_registro)
+                cur.execute("SELECT * FROM COLABORADORES WHERE COL_MATRICULA = ?", operador_registro)
                 rows = cur.fetchall()
                 colaborador = rows[0]
                 nome = colaborador[2]
@@ -254,7 +306,9 @@ def capture():
                     amostra += 1
 
                     if amostra > 50:
-                        exit(0)
+                        cap.release()
+                        Treinamento3.treinar()
+                        return redirect('/success')
 
             frame = cv2.imencode('.jpg', img)[1].tobytes()
             yield b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n'

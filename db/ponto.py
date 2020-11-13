@@ -10,9 +10,13 @@ print("TABELAS DROPADAS")
 con.execute(
     "CREATE TABLE COLABORADORES ("
     "COL_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-    "COL_REGISTRO INTEGER NOT NULL,"
+    "COL_MATRICULA INTEGER NOT NULL,"
     "COL_NOME TEXT NOT NULL,"
-    "COL_EMAIL TEXT UNIQUE NOT NULL)"
+    "COL_CPF TEXT NOT NULL,"
+    "COL_RG TEXT NOT NULL,"
+    "COL_SENHA TEXT NOT NULL,"
+    "COL_EMAIL TEXT NOT NULL UNIQUE,"
+    "COL_ADMIN INTEGER NOT NULL)"
 )
 
 con.execute(
@@ -23,15 +27,18 @@ con.execute(
     "REG_DATA DATE NOT NULL,"
     "FOREIGN KEY(COL_ID) REFERENCES COLABORADORES(COL_ID))"
 )
+print("TABELAS CRIADAS")
 
 con.execute(
-    "INSERT INTO COLABORADORES (COL_REGISTRO, COL_NOME, COL_EMAIL) VALUES (?,?,?)",
-    (1, "Renan Alcolea", "renan@levi.com")
+    "INSERT INTO COLABORADORES (COL_MATRICULA, COL_NOME,COL_CPF,COL_RG,COL_SENHA,COL_EMAIL,COL_ADMIN) "
+    "VALUES (?,?,?,?,?,?,?)",
+    (1, "Renan Alcolea", "00000014141", "123", "renan", "renan@domain.com", 1)
 )
 
 con.execute(
-    "INSERT INTO COLABORADORES (COL_REGISTRO, COL_NOME, COL_EMAIL) VALUES (?,?,?)",
-    (2, "Levi Martines", "levi@levi.com")
+    "INSERT INTO COLABORADORES (COL_MATRICULA, COL_NOME,COL_CPF,COL_RG,COL_SENHA,COL_EMAIL,COL_ADMIN) "
+    "VALUES (?,?,?,?,?,?,?)",
+    (2, "Sandra Lucia", "99999999999", "444", "sandra", "sandra@domain.com", 2)
 )
 
 con.execute(
@@ -41,10 +48,10 @@ con.execute(
 
 con.execute(
     "INSERT INTO REGISTRO (COL_ID, REG_NOME, REG_DATA) VALUES (?,?,?)",
-    (2, "Levi Martines", datetime.datetime.now())
+    (2, "Sandra Lucia", datetime.datetime.now())
 )
 
 con.commit()
-print("TABELAS CRIADAS")
+print("DADOS INSERIDOS")
 
 con.close()
