@@ -222,7 +222,7 @@ def view():
         cur.execute("SELECT * from COLABORADORES")
         rows = cur.fetchall()
         con.close()
-        return render_template("view.html", rows=rows)
+        return render_template("gestao_colab.html", rows=rows)
     except:
         return render_template("fail.html")
 
