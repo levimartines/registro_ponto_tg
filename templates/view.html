@@ -19,9 +19,7 @@
                 <a class="navbar-brand">
                     <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
                 </a>
-                <a class="navbar-brand">
-                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-                </a>
+
 
             </div>
             <div class="row">
@@ -38,7 +36,7 @@
             <thead class="thead-dark">
             <tr>
                 <!--            <th scope="col">ID</th>-->
-                <th scope="col">Nm Registro</th>
+                <th scope="col">Matrícula</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">CPF</th>
@@ -50,7 +48,7 @@
             {% for row in rows %}
             <tr>
                 <!--            <th>{{row["COL_ID"]}}</th>-->
-                <th>{{row["COL_REGISTRO"]}}</th>
+                <th>{{row["COL_MATRICULA"]}}</th>
                 <td>{{row["COL_NOME"]}}</td>
                 <td>{{row["COL_EMAIL"]}}</td>
                 <td>{{row["COL_CPF"]}}</td>

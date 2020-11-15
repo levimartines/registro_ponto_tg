@@ -7,7 +7,6 @@
 <body>
 <script>
     cams = 0;
-
     function addCam() {
         if (cams === 1) return;
         var img = document.createElement("img");
@@ -18,30 +17,84 @@
     }
 
 
+
+
+
+
+
+
+
+
 </script>
 <div class="d-flex flex-column">
     <div>
-        <nav class="navbar navbar-dark bg-dark" style="justify-content: flex-start">
-            <a class="navbar-brand">
-                <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-            </a>
-            <a class="navbar-brand">
-                <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
-            </a>
+        <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
+            <div class="row">
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
+                </a>
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
+                </a>
+
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                </a>
+
+            </div>
+            <div class="row">
+                <a class="navbar-brand">
+                    <a class="nav-link" href="/" style="font-size: 25px">Log Out</a>
+                </a>
+            </div>
         </nav>
     </div>
-    <br>
-    <div style="margin-left: 20px">
-        <button onclick="addCam()">Cadastrar fotos</button>
-    </div>
-    <div class="d-flex justify-content-center" id="divX">
-        {#<img src="{{ url_for('video_capture') }}" id="img" style="display: none">#}
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-3" style="margin-top: 32px">
+            <table class="table table-hover">
+
+                {% for row in rows %}
+
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Matricula</th>
+                    <td scope="col">{{row[0]}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <td scope="col">{{row[1]}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Email</th>
+                    <td scope="col">{{row[2]}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">CPF</th>
+                    <td scope="col">{{row[3]}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">RG</th>
+                    <td scope="col">{{row[4]}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">RH</th>
+                    <td scope="col">{{row[5]}}</td>
+                </tr>
+                </thead>
+
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-9" style="margin-top: 32px">
+            <div class="d-flex justify-content-center" id="divX">
+                {#<img src="{{ url_for('video_capture') }}" id="img" style="display: none">#}
+            </div>
+            <div style="margin-left: 20px">
+                <button onclick="addCam()">Cadastrar fotos</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>

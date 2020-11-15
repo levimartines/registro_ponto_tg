@@ -121,19 +121,19 @@ def my_form_post():
             if matricula == '' or name == '' or cpf == '' or rg == '' or email == '' or senha == '':
                 return redirect('/cadastro')
 
-            isRh = 1
+            is_rh = 1
             if rh == 'on':
-                isRh = 2
+                is_rh = 2
 
             with sqlite3.connect("db/ponto.db") as con:
                 cur = con.cursor()
-                con.execute(
+                cur.execute(
                     "INSERT INTO COLABORADORES (COL_MATRICULA, COL_NOME,COL_CPF,COL_RG,COL_SENHA,COL_EMAIL,COL_ADMIN) "
                     "VALUES (?,?,?,?,?,?,?)",
-                    (matricula, name, cpf, rg, senha, email, 0))
+                    (matricula, name, cpf, rg, senha, email, is_rh))
                 con.commit()
                 global codigo
-                altera_codigo(matricula)
+                altera_codigo(int(matricula))
         finally:
             con.close()
     return redirect('/cadastro-camera')
@@ -141,7 +141,19 @@ def my_form_post():
 
 @app.route('/cadastro-camera')
 def cadastro_camera():
-    return render_template('cadastroCam.html')
+    try:
+        with sqlite3.connect("db/ponto.db") as con:
+            cur = con.cursor()
+            global codigo
+            str_codigo = str(codigo)
+            print(str_codigo)
+            str_codigo = '3'
+            cur.execute("SELECT * FROM COLABORADORES WHERE COL_MATRICULA = ?", str_codigo)
+            rows = cur.fetchall()
+            print(str(rows))
+            return render_template('cadastroCam.html', rows=rows)
+    finally:
+        con.close()
 
 
 @app.route('/registro')
@@ -300,8 +312,10 @@ def capture():
                 cv2.rectangle(img, (x, y), (x + l, y + a), (0, 0, 255), 2)
                 if np.average(image_grey) > 70:
                     global codigo
+                    str_codigo = str(codigo)
+                    str_codigo = '3'
                     imagemface = cv2.resize(image_grey[y:y + a, x:x + l], (larg, alt))
-                    cv2.imwrite("fotos/pessoa." + str(codigo) + "." + str(amostra) + ".jpg", imagemface) + amostra
+                    cv2.imwrite("fotos/pessoa." + str_codigo + "." + str(amostra) + ".jpg", imagemface) + amostra
                     print("Foto capturada com sucesso - " + str(amostra))
                     amostra += 1
 

@@ -20,10 +20,6 @@
                     <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
                 </a>
 
-                <a class="navbar-brand">
-                    <a class="nav-link" href="/registro" style="font-size: 25px">Registro de Ponto</a>
-                </a>
-
             </div>
             <div class="row">
                 <a class="navbar-brand">
@@ -39,38 +35,39 @@
             <form method="POST" id="form" action="/cadastro">
                 <label>
                     Matrícula:
-                    <input type="text" name="matricula" id="matricula" style="width: 200px">
+                    <input type="text" name="matricula" id="matricula">
                 </label>
                 <br>
                 <label>
                     Nome:
-                    <input type="text" name="name" id="name" style="width: 200px">
+                    <input type="text" name="name" id="name">
                 </label>
-                <br>
                 <br>
                 <label>
                     CPF:
-                    <input type="text" name="cpf" id="cpf" style="width: 200px">
+                    <input type="text" name="cpf" id="cpf">
                 </label>
                 <br>
                 <label>
                     RG:
-                    <input type="text" name="rg" id="rg" style="width: 200px">
+                    <input type="text" name="rg" id="rg">
                 </label>
+                <br>
                 <label>
                     Email:
-                    <input type="email" name="email" id="email" placeholder="nome@dominio.com" style="width: 200px ">
+                    <input type="email" name="email" id="email" placeholder="nome@dominio.com">
                 </label>
                 <br>
                 <label>
                     Senha:
-                    <input type="password" name="senha" id="senha" style="width: 200px">
+                    <input type="password" name="senha" id="senha">
                 </label>
                 <br>
                 <div>
                     <input type="checkbox" id="admin" name="admin">
                     <label for="admin">RH</label>
                 </div>
+<!--                <button id="button" type="submit" class="btn btn-primary">Submit</button>-->
                 <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
                 <br>
             </form>
@@ -88,9 +85,6 @@
     document.getElementById("form").onsubmit(function (e) {
         e.preventDefault();
     });
-
-
-
 
 </script>
 </body>

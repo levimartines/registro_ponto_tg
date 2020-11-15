@@ -7,33 +7,35 @@
 </head>
 <body>
 
-<div class="card" style="width: 18rem; margin-left: 500px; margin-top:10px;">
-    <img src="https://www.grupoescolar.com/galeria/fotos/0A08188EF.jpg"
-         class="card-img-top" alt="...">
-    <div class="card-body">
+<div class="container" style="display: flex; justify-content: center; margin-top: 24px">
+    <div class="card">
+        <img src="https://www.grupoescolar.com/galeria/fotos/0A08188EF.jpg"
+             class="card-img-top" alt="Logo Instituição">
 
-        <br>
-        <h2>Login</h2>
-        <div style="margin-left: 20px">
-            <form method="POST" id="form" action="/login">
-                <label>
-                    Email:
-                    <input type="email" name="email" id="email" style="width: 200px">
-                </label>
-                <br>
-                <label>
-                    Senha:
-                    <input type="password" name="pass" id="pass" style="width: 200px">
-                </label>
-                <br>
-                <input id="submitCodigo" class="btn btn-primary" type="submit" value="Login">
-                <br>
-            </form>
+        <div class="card-body">
+            <br>
+            <h2>Login</h2>
+            <div>
+                <form method="POST" id="form" action="/login">
+                    <label>
+                        Email:
+                        <input type="email" name="email" id="email" style="width: 200px">
+                    </label>
+                    <br>
+                    <label>
+                        Senha:
+                        <input type="password" name="pass" id="pass" style="width: 200px">
+                    </label>
+                    <br>
+                    <input id="submitCodigo" class="btn btn-primary" type="submit" value="Login">
+                    <br>
+                </form>
 
-            {#
-            <button onclick="addCam()">Cadastrar fotos</button>
-            #}
+                {#
+                <button onclick="addCam()">Cadastrar fotos</button>
+                #}
 
+            </div>
         </div>
     </div>
 </div>
