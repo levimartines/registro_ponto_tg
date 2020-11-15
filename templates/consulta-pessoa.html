@@ -11,7 +11,7 @@
         <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
             <div>
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Gestão de Ponto</a>
                 </a>
             </div>
 
@@ -29,16 +29,15 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">Nome</th>
-            <th scope="col">Nm Registro</th>
+            <th scope="col">Matrícula</th>
             <th scope="col">Hora e Data</th>
         </tr>
         </thead>
 
         {% for row in rows %}
-
         <tr>
-            <td>{{row["REG_NOME"]}}</td>
-            <th>{{row["COL_ID"]}}</th>
+            <td>{{row["COL_NOME"]}}</td>
+            <th>{{row["COL_MATRICULA"]}}</th>
             <td>{{row["REG_DATA"]}}</td>
         </tr>
         {% endfor %}

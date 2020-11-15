@@ -23,7 +23,6 @@ con.execute(
     "CREATE TABLE REGISTRO ("
     "REG_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
     "COL_ID INTEGER,"
-    "REG_NOME TEXT NOT NULL,"
     "REG_DATA DATE NOT NULL,"
     "FOREIGN KEY(COL_ID) REFERENCES COLABORADORES(COL_ID))"
 )
@@ -42,13 +41,13 @@ con.execute(
 )
 
 con.execute(
-    "INSERT INTO REGISTRO (COL_ID, REG_NOME, REG_DATA) VALUES (?,?,?)",
-    (1, "Renan Alcolea", datetime.datetime.now())
+    "INSERT INTO REGISTRO (COL_ID, REG_DATA) VALUES (?,?)",
+    (1, datetime.datetime.now())
 )
 
 con.execute(
-    "INSERT INTO REGISTRO (COL_ID, REG_NOME, REG_DATA) VALUES (?,?,?)",
-    (2, "Sandra Lucia", datetime.datetime.now())
+    "INSERT INTO REGISTRO (COL_ID, REG_DATA) VALUES (?,?)",
+    (2, datetime.datetime.now())
 )
 
 con.commit()

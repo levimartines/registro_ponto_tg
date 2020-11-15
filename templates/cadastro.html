@@ -10,16 +10,12 @@
         <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
             <div class="row">
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
-                </a>
-                <a class="navbar-brand">
-                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
+                    <a class="nav-link" href="/view" style="font-size: 25px">Gestão de Colaboradores</a>
                 </a>
 
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Gestão de Ponto</a>
                 </a>
-
             </div>
             <div class="row">
                 <a class="navbar-brand">
@@ -30,61 +26,46 @@
     </div>
     <br>
     <div class="container">
-        <h2>Cadastro de Funcionário</h2>
+        <h2>Cadastrar Colaborador</h2>
         <div class="container">
             <form method="POST" id="form" action="/cadastro">
-                <label>
-                    Matrícula:
-                    <input type="text" name="matricula" id="matricula">
-                </label>
-                <br>
-                <label>
-                    Nome:
-                    <input type="text" name="name" id="name">
-                </label>
-                <br>
-                <label>
-                    CPF:
-                    <input type="text" name="cpf" id="cpf">
-                </label>
-                <br>
-                <label>
-                    RG:
-                    <input type="text" name="rg" id="rg">
-                </label>
-                <br>
-                <label>
-                    Email:
-                    <input type="email" name="email" id="email" placeholder="nome@dominio.com">
-                </label>
-                <br>
-                <label>
-                    Senha:
-                    <input type="password" name="senha" id="senha">
-                </label>
-                <br>
-                <div>
-                    <input type="checkbox" id="admin" name="admin">
-                    <label for="admin">RH</label>
+                <div class="form-group">
+                    <label for="matricula">Matrícula: </label>
+                    <input type="text" name="matricula" id="matricula" class="form-control">
+
+                    <br>
+                    <label for="name">Nome: </label>
+                    <input type="text" name="name" id="name" class="form-control">
+
+                    <br>
+                    <label for="cpf">CPF: </label>
+                    <input type="text" name="cpf" id="cpf" class="form-control">
+
+                    <br>
+                    <label for="rg">RG: </label>
+                    <input type="text" name="rg" id="rg" class="form-control">
+
+                    <br>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="nome@dominio.com" class="form-control">
+                    <br>
+
+                    <label for="senha">Senha:</label>
+                    <input type="password" name="senha" id="senha" class="form-control">
+
+                    <br>
+                    <div>
+                        <label for="admin">RH</label>
+                        <input type="checkbox" id="admin" name="admin" class="form-check-input">
+                    </div>
+                    <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
+                    <br>
                 </div>
-<!--                <button id="button" type="submit" class="btn btn-primary">Submit</button>-->
-                <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
-                <br>
             </form>
-            {#
-            <button onclick="addCam()">Cadastrar fotos</button>
-            #}
-        </div>
-        <div class="d-flex justify-content-center" id="divX">
-            {#<img src="{{ url_for('video_capture') }}" id="img" style="display: none">#}
         </div>
     </div>
 </div>
 
 <script>
-    document.getElementById("form").onsubmit(function (e) {
-        e.preventDefault();
-    });
-
 </script>
 </body>

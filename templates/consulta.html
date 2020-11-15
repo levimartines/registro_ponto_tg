@@ -11,15 +11,13 @@
         <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
             <div class="row">
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
+                    <a class="nav-link" href="/view" style="font-size: 25px">Gestão de Colaboradores</a>
                 </a>
 
-                <a class="navbar-brand">
-                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
-                </a>
+
 
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Gestão de Ponto</a>
                 </a>
 
             </div>
@@ -34,13 +32,13 @@
     <br>
     <div class="row">
         <div class="col-1"></div>
-        <div class="col-4">
+        <div class="col-3">
             <div class="container" style="margin-top: 24px">
-
+                <h4>Inserir Registro</h4>
                 <form method="POST" id="form" action="/post-registro">
                     <div class="col-4">
                         <label>
-                            ID Colaborador:
+                            Matrícula:
                             <input type="text" name="codigo" id="codigo" style="width: 200px">
                         </label>
                     </div>
@@ -57,23 +55,24 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-7">
             <div class="container">
                 <table class="table table-hover" style="margin-top: 24px">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">Nome</th>
-                        <th scope="col">Nm Registro</th>
-                        <th scope="col">Hora e Data</th>
+                        <th scope="col">Matrícula</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">Data/Hora</th>
                     </tr>
                     </thead>
 
                     {% for row in rows %}
-
                     <tr>
-                        <td>{{row["REG_NOME"]}}</td>
-                        <th>{{row["COL_ID"]}}</th>
-                        <td>{{row["REG_DATA"]}}</td>
+                        <td>{{row["COL_NOME"]}}</td>
+                        <td>{{row["COL_MATRICULA"]}}</td>
+                        <td>{{row["COL_EMAIL"]}}</td>
+                        <td>{{row["REG_DATA"]|to_date}}</td>
                     </tr>
                     {% endfor %}
                 </table>

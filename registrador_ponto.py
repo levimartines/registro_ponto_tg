@@ -41,28 +41,22 @@ while cap.isOpened():
             if i >= 40 and confidence < 58 and class_id == 2:
                 findface = True
                 i = 0
-                name = 'Sandra Lucia'
                 data = datetime.now()
                 with sqlite3.connect("db/ponto.db") as con:
                     cur = con.cursor()
-                    cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
-                                (class_id, name, data))
+                    cur.execute("INSERT into REGISTRO (COL_ID, REG_DATA) values (?,?)",
+                                (class_id, data))
                     con.commit()
 
             if i >= 40 and confidence < 50 and (class_id == 1 or class_id == 3):
                 findface = True
                 i = 0
-                name = ''
-                if class_id == 1:
-                    name = 'Renan Alcolea'
-                else:
-                    name = 'Levi Martines'
 
                 data = datetime.now()
                 with sqlite3.connect("db/ponto.db") as con:
                     cur = con.cursor()
-                    cur.execute("INSERT into REGISTRO (COL_ID,REG_NOME,REG_DATA) values (?,?,?)",
-                                (class_id, name, data))
+                    cur.execute("INSERT into REGISTRO (COL_ID, REG_DATA) values (?,?)",
+                                (class_id, data))
                     con.commit()
 
         frame = cv2.imencode('.jpg', img)[1].tobytes()

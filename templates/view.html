@@ -11,13 +11,11 @@
         <nav class="navbar navbar-dark bg-dark" style="justify-content: space-between">
             <div class="row">
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/view" style="font-size: 25px">Lista de Colaboradores</a>
+                    <a class="nav-link" href="/view" style="font-size: 25px">Gestão de Colaboradores</a>
                 </a>
+
                 <a class="navbar-brand">
-                    <a class="nav-link" href="/cadastro" style="font-size: 25px">Cadastro de colaboradores</a>
-                </a>
-                <a class="navbar-brand">
-                    <a class="nav-link" href="/consulta" style="font-size: 25px">Consulta de Ponto</a>
+                    <a class="nav-link" href="/consulta" style="font-size: 25px">Gestão de Ponto</a>
                 </a>
 
 
@@ -29,39 +27,92 @@
             </div>
         </nav>
     </div>
+</div>
 
-    <br>
-    <div class="container" style="margin-top:18px">
-        <table class="table table-hover">
-            <thead class="thead-dark">
-            <tr>
-                <!--            <th scope="col">ID</th>-->
-                <th scope="col">Matrícula</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Email</th>
-                <th scope="col">CPF</th>
+<br>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+        <div class="container">
+            <h2>Cadastrar Colaborador</h2>
+            <br>
+            <form method="POST" id="form" action="/cadastro">
+                <div class="form-group">
+                    <label for="matricula">Matrícula: </label>
+                    <input type="text" name="matricula" id="matricula" class="form-control">
 
-                <th scope="col">Excluir</th>
-            </tr>
-            </thead>
+                    <br>
+                    <label for="name">Nome: </label>
+                    <input type="text" name="name" id="name" class="form-control">
 
-            {% for row in rows %}
-            <tr>
-                <!--            <th>{{row["COL_ID"]}}</th>-->
-                <th>{{row["COL_MATRICULA"]}}</th>
-                <td>{{row["COL_NOME"]}}</td>
-                <td>{{row["COL_EMAIL"]}}</td>
-                <td>{{row["COL_CPF"]}}</td>
-                <td>
-                    <button>Excluir</button>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br><br>
+                    <br>
+                    <label for="cpf">CPF: </label>
+                    <input type="text" name="cpf" id="cpf" class="form-control">
 
-        <a href="/consulta" class="btn btn-secondary">Voltar</a>
+                    <br>
+                    <label for="rg">RG: </label>
+                    <input type="text" name="rg" id="rg" class="form-control">
+
+                    <br>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="nome@dominio.com" class="form-control">
+                    <br>
+
+                    <label for="senha">Senha:</label>
+                    <input type="password" name="senha" id="senha" class="form-control">
+
+                    <br>
+                    <div>
+                        <input type="checkbox" id="admin" name="admin">
+                        <label for="admin">RH</label>
+                    </div>
+                    <input id="submitCodigo" class="btn btn-primary" type="submit" value="Cadastrar">
+                    <br>
+                </div>
+            </form>
+        </div>
     </div>
+    <div class="col-1"></div>
+    <div class="col-6">
+        <div class="container" style="margin-top:18px">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <!--            <th scope="col">ID</th>-->
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">Alterar</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+                </thead>
+
+                {% for row in rows %}
+                <tr>
+                    <!--            <th>{{row["COL_ID"]}}</th>-->
+                    <th>{{row["COL_MATRICULA"]}}</th>
+                    <td>{{row["COL_NOME"]}}</td>
+                    <td>{{row["COL_EMAIL"]}}</td>
+                    <td>{{row["COL_CPF"]}}</td>
+                    <td>
+                        <button type="button" class="btn btn-info">Alterar</button>
+                    </td>
+                    <td>
+                        <form action="/delete-user">
+                            <input type=hidden value="{{row['COL_MATRICULA']}}" name=matricula/>
+                            <input class="btn btn-danger" type="submit" value="Inativar">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br><br>
+
+            <a href="/consulta" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+    <div class="col-1"></div>
 </div>
 
 </body>
